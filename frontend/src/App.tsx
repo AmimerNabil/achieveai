@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 import TaskModal from './components/TaskModal'
 import { PlusCircle } from 'lucide-react';
+import TaskDetails from './components/TaskDetails';
 
 
 
@@ -80,6 +81,8 @@ function App() {
         New Task
       </button>
       <TaskModal isOpen={isModalOpen} onClose={() => { setIsModalOpen(false) }} onSubmit={handleCreateTask} />
+      <TaskDetails task={tasks[0]} onClose={() => { }} onEdit={() => { }} />
+
     </>
   )
 }
