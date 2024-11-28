@@ -4,7 +4,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import { X } from 'lucide-react';
 import { Task } from '../types';
 
-
 interface TaskModalProps {
     isOpen: boolean;
     onClose: () => void;
@@ -62,9 +61,10 @@ export default function TaskModal({ isOpen, onClose, onSubmit, editTask }: TaskM
             <div className="bg-white rounded-lg w-full max-w-4xl p-6 relative mx-4">
                 <button
                     onClick={onClose}
-                    className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
+                    className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 p-3"
+                    style={{ margin: '8px' }}
                 >
-                    <X size={24} />
+                    <X className="w-6 h-6" />
                 </button>
 
                 <h2 className="text-xl font-semibold mb-4">
@@ -104,13 +104,10 @@ export default function TaskModal({ isOpen, onClose, onSubmit, editTask }: TaskM
                             </label>
                             <DatePicker
                                 selected={dueDate}
-                                onChange={(date) => setDueDate(date as Date)}
-                                showTimeSelect
-                                timeFormat="HH:mm"
-                                timeIntervals={15}
-                                timeCaption="time"
-                                dateFormat="MMMM d, yyyy h:mm aa"
+                                onChange={(date) => setDueDate(date || new Date())}
                                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                dateFormat="MMMM d, yyyy"
+                                minDate={new Date()}
                             />
                         </div>
                     </div>
