@@ -2,8 +2,6 @@
 const express = require('express');
 const Task = require('../models/Task');
 const router = express.Router();
-const { ObjectId } = require('mongoose').Types;
-
 
 // Get all tasks
 router.get('/', async (req, res) => {
@@ -41,6 +39,16 @@ router.get('/:id', async (req, res) => {
 router.put('/:id', async (req, res) => {
   try {
     const task = await Task.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.json(task);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+// Update task time spent
+router.put('/:id/time', async (req, res) => {
+  try {
+    const task = await Task.findByIdAndUpdate(req.params.id, { timeSpent: req.body.timeSpent }, { new: true });
     res.json(task);
   } catch (err) {
     res.status(400).json({ message: err.message });
