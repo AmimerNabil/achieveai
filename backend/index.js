@@ -2,6 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
+require('dotenv').config();
+
 const app = express();
 const port = 3000;
 
@@ -9,7 +11,7 @@ const port = 3000;
 app.use(bodyParser.json());
 
 // MongoDB connection
-const dbURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/test';
+const dbURI = process.env.MONGODB_URI;
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('MongoDB connected...'))
     .catch(err => console.log(err));
@@ -23,3 +25,6 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
+
+const taskRoutes = require('./routes/tasks');
+app.use('/tasks', taskRoutes);
