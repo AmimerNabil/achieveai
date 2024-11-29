@@ -26,3 +26,5 @@ app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
 
+const taskRoutes = require('./routes/tasks');
+app.use('/tasks', taskRoutes);
