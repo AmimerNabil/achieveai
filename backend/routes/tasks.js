@@ -1,68 +1,90 @@
-// routes/tasks.js
 const express = require('express');
 const Task = require('../models/Task');
 const router = express.Router();
 
-// Get all tasks
+// Get all tasks for the logged-in user
 router.get('/', async (req, res) => {
-  try {
-    const tasks = await Task.find();
-    res.json(tasks);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
+    try {
+        const tasks = await Task.find({ user: req.user.email }); // Filter by user's email
+        res.json(tasks);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
 });
 
-// Create a new task
+// Create a new task for the logged-in user
 router.post('/', async (req, res) => {
-  const task = new Task(req.body);
-  try {
-    const newTask = await task.save();
-    res.status(201).json(newTask);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
-  }
+    const task = new Task({
+        ...req.body,
+        email: req.user.email, // Associate task with user's email
+    });
+    try {
+        const newTask = await task.save();
+        res.status(201).json(newTask);
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
 });
 
-// Get a task
+// Get a specific task for the logged-in user
 router.get('/:id', async (req, res) => {
-  try {
-    console.log(req.params.id);
-    const task = await Task.findOne({ _id: req.params.id });
-    res.json(task);
-  } catch (err) {
-    res.status(404).json({ message: 'Task not found' });
-  }
+    try {
+        const task = await Task.findOne({ _id: req.params.id, user: req.user.email }); // Match task ID and user's email
+        if (!task) {
+            return res.status(404).json({ message: 'Task not found' });
+        }
+        res.json(task);
+    } catch (err) {
+        res.status(404).json({ message: 'Task not found' });
+    }
 });
 
-// Update a task
+// Update a task for the logged-in user
 router.put('/:id', async (req, res) => {
-  try {
-    const task = await Task.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    res.json(task);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
-  }
+    try {
+        const task = await Task.findOneAndUpdate(
+            { _id: req.params.id, user: req.user.email }, // Match task ID and user's email
+            req.body,
+            { new: true }
+        );
+        if (!task) {
+            return res.status(404).json({ message: 'Task not found' });
+        }
+        res.json(task);
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
 });
 
-// Update task time spent
+// Update task time spent for the logged-in user
 router.put('/:id/time', async (req, res) => {
-  try {
-    const task = await Task.findByIdAndUpdate(req.params.id, { timeSpent: req.body.timeSpent }, { new: true });
-    res.json(task);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
-  }
+    try {
+        const task = await Task.findOneAndUpdate(
+            { _id: req.params.id, user: req.user.email }, // Match task ID and user's email
+            { timeSpent: req.body.timeSpent },
+            { new: true }
+        );
+        if (!task) {
+            return res.status(404).json({ message: 'Task not found' });
+        }
+        res.json(task);
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
 });
 
-// Delete a task
+// Delete a task for the logged-in user
 router.delete('/:id', async (req, res) => {
-  try {
-    await Task.findByIdAndDelete(req.params.id);
-    res.json({ message: 'Task deleted' });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
+    try {
+        const task = await Task.findOneAndDelete({ _id: req.params.id, user: req.user.email }); // Match task ID and user's email
+        if (!task) {
+            return res.status(404).json({ message: 'Task not found' });
+        }
+        res.json({ message: 'Task deleted' });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
 });
 
 module.exports = router;
+

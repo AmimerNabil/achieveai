@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { auth } from '../firebase/auth';
+import { auth, waitForAuth } from '../firebase/auth';
 
 const axiosInstance = axios.create({
     baseURL: import.meta.env.VITE_BACKEND_URL,
@@ -8,6 +8,7 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
     async (config) => {
         const user = auth.currentUser;
+        await waitForAuth;
 
         if (user) {
             const idToken = await user.getIdToken();
@@ -17,6 +18,18 @@ axiosInstance.interceptors.request.use(
         return config;
     },
     (error) => {
+        return Promise.reject(error);
+    }
+);
+
+axiosInstance.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        if (error.response && error.response.status === 401) {
+            console.log('Unauthorized: Invalid token');
+            // Redirect to the login page
+            window.location.href = '/login';
+        }
         return Promise.reject(error);
     }
 );

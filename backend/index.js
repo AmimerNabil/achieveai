@@ -28,7 +28,7 @@ mongoose.connect(dbURI)
 
 // Routes
 app.get('/', (req, res) => {
-    res.send('Hello World!');
+    res.send(req.user);
 });
 
 // Start server

@@ -3,8 +3,8 @@ import { auth, gp } from "../firebase/auth";
 import { signInWithPopup } from "firebase/auth";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-export default function Login() {
 
+export default function Login() {
     const navigate = useNavigate();
 
     useEffect(() => {

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Clock, CheckCircle2, Circle, AlertCircle, Timer, Pause, Square, RotateCcw } from 'lucide-react';
 import { Task } from '../types';
 import TaskTimer from './TaskTimer';
@@ -12,6 +11,7 @@ interface TaskListProps {
 }
 
 export default function TaskList({ tasks, onToggleTimer, onToggleComplete, onTaskClick, onTimeUpdate }: TaskListProps) {
+
     const getPriorityIcon = (priority: string) => {
         switch (priority.toLowerCase()) {
             case 'high':
@@ -40,7 +40,7 @@ export default function TaskList({ tasks, onToggleTimer, onToggleComplete, onTas
             ) : (
                 tasks.map((task) => (
                     <div
-                        key={task.id}
+                        key={task._id}
                         className={`bg-white rounded-lg shadow-sm p-4 flex items-center justify-between transition-all cursor-pointer hover:shadow-md ${task.isCompleted ? 'opacity-75' : ''
                             }`}
                         onClick={() => onTaskClick(task)}
@@ -49,7 +49,7 @@ export default function TaskList({ tasks, onToggleTimer, onToggleComplete, onTas
                             <button
                                 onClick={(e) => {
                                     e.stopPropagation();
-                                    onToggleComplete(task.id);
+                                    onToggleComplete(task._id);
                                 }}
                                 className="focus:outline-none"
                             >
@@ -81,7 +81,7 @@ export default function TaskList({ tasks, onToggleTimer, onToggleComplete, onTas
                                     isRunning={task.isTimerRunning}
                                     estimatedTime={task.estimatedTime || 0}
                                     timeSpent={task.timeSpent}
-                                    onTimeUpdate={(timeSpent) => onTimeUpdate(task.id, timeSpent)}
+                                    onTimeUpdate={(timeSpent) => onTimeUpdate(task._id, timeSpent)}
                                 />
                             )}
                             <div className="flex flex-col items-end">
@@ -92,7 +92,7 @@ export default function TaskList({ tasks, onToggleTimer, onToggleComplete, onTas
                                                 <button
                                                     onClick={(e) => {
                                                         e.stopPropagation();
-                                                        onToggleTimer(task.id, 'start');
+                                                        onToggleTimer(task._id, 'start');
                                                     }}
                                                     className="p-2 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors"
                                                     title="Start Timer"
@@ -104,7 +104,7 @@ export default function TaskList({ tasks, onToggleTimer, onToggleComplete, onTas
                                                 <button
                                                     onClick={(e) => {
                                                         e.stopPropagation();
-                                                        onToggleTimer(task.id, 'pause');
+                                                        onToggleTimer(task._id, 'pause');
                                                     }}
                                                     className="p-2 rounded-full bg-yellow-100 text-yellow-600 hover:bg-yellow-200 transition-colors"
                                                     title="Pause Timer"
@@ -117,7 +117,7 @@ export default function TaskList({ tasks, onToggleTimer, onToggleComplete, onTas
                                                     <button
                                                         onClick={(e) => {
                                                             e.stopPropagation();
-                                                            onToggleTimer(task.id, 'start');
+                                                            onToggleTimer(task._id, 'start');
                                                         }}
                                                         className="p-2 rounded-full bg-green-100 text-green-600 hover:bg-green-200 transition-colors"
                                                         title="Resume Timer"
@@ -127,7 +127,7 @@ export default function TaskList({ tasks, onToggleTimer, onToggleComplete, onTas
                                                     <button
                                                         onClick={(e) => {
                                                             e.stopPropagation();
-                                                            onToggleTimer(task.id, 'restart');
+                                                            onToggleTimer(task._id, 'restart');
                                                         }}
                                                         className="p-2 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200 transition-colors"
                                                         title="Restart Timer"
@@ -137,7 +137,7 @@ export default function TaskList({ tasks, onToggleTimer, onToggleComplete, onTas
                                                     <button
                                                         onClick={(e) => {
                                                             e.stopPropagation();
-                                                            onToggleTimer(task.id, 'stop');
+                                                            onToggleTimer(task._id, 'stop');
                                                         }}
                                                         className="p-2 rounded-full bg-red-100 text-red-600 hover:bg-red-200 transition-colors"
                                                         title="Stop Timer"

@@ -16,6 +16,7 @@ type TimeRange = 'today' | 'week' | 'month' | 'custom';
 type ChartMetric = 'tasks' | 'time';
 
 export default function Analytics({ tasks }: AnalyticsProps) {
+
     const [timeRange, setTimeRange] = useState<TimeRange>('week');
     const [chartMetric, setChartMetric] = useState<ChartMetric>('tasks');
     const [customStartDate, setCustomStartDate] = useState<Date>(new Date());

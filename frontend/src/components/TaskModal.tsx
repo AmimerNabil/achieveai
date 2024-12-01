@@ -3,11 +3,12 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import { X } from 'lucide-react';
 import { Task } from '../types';
+import { auth } from '../firebase/auth';
 
 interface TaskModalProps {
     isOpen: boolean;
     onClose: () => void;
-    onSubmit: (task: Omit<Task, 'id' | 'isCompleted' | 'isTimerRunning' | 'timeSpent'>) => void;
+    onSubmit: (task: Omit<Task, '_id' | 'isCompleted' | 'isTimerRunning' | 'timeSpent'>) => void;
     editTask?: Task;
 }
 
@@ -35,6 +36,7 @@ export default function TaskModal({ isOpen, onClose, onSubmit, editTask }: TaskM
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         onSubmit({
+            user: auth.currentUser?.email || "",
             title,
             description,
             priority,
