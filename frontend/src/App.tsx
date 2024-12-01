@@ -5,6 +5,7 @@ import { useState } from 'react';
 import TaskModal from './components/TaskModal'
 import { PlusCircle } from 'lucide-react';
 import TaskDetails from './components/TaskDetails';
+import TaskList from './components/TaskList';
 
 
 
@@ -82,7 +83,13 @@ function App() {
       </button>
       <TaskModal isOpen={isModalOpen} onClose={() => { setIsModalOpen(false) }} onSubmit={handleCreateTask} />
       <TaskDetails task={tasks[0]} onClose={() => { }} onEdit={() => { }} />
-
+      <TaskList
+        tasks={initialTasks}
+        onToggleTimer={() => { }}
+        onToggleComplete={() => { }}
+        onTaskClick={() => { }}
+        onTimeUpdate={() => { }}
+      />
     </>
   )
 }
