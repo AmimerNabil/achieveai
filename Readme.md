@@ -16,7 +16,7 @@ under the following name: `.env`. change the values in
 them to reflect the values you want.
 2. run `docker compose up --build` in the root directory and you will
 have a mongodb running along with the backend.
-3. run `node index.js` to run the backend.
+3. run `npm run dev` to run the backend.
 
 -- for the backend
 
