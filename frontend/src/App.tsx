@@ -2,12 +2,6 @@ import './App.css'
 import { Task } from './types';
 import { useState } from 'react';
 
-import TaskModal from './components/TaskModal'
-import { PlusCircle } from 'lucide-react';
-import TaskDetails from './components/TaskDetails';
-import TaskList from './components/TaskList';
-
-
 
 
 const initialTasks: Task[] = [
@@ -71,25 +65,6 @@ function App() {
 
   return (
     <>
-      <button
-        onClick={() => {
-          setEditingTask(null);
-          setIsModalOpen(true);
-        }}
-        className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-      >
-        <PlusCircle className="w-5 h-5 mr-2" />
-        New Task
-      </button>
-      <TaskModal isOpen={isModalOpen} onClose={() => { setIsModalOpen(false) }} onSubmit={handleCreateTask} />
-      <TaskDetails task={tasks[0]} onClose={() => { }} onEdit={() => { }} />
-      <TaskList
-        tasks={initialTasks}
-        onToggleTimer={() => { }}
-        onToggleComplete={() => { }}
-        onTaskClick={() => { }}
-        onTimeUpdate={() => { }}
-      />
     </>
   )
 }
