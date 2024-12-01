@@ -1,7 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider } from "firebase/auth";
-
-console.log(import.meta.env.VITE_FIREBASE_API_KEY)
+import { getAuth, GoogleAuthProvider, onAuthStateChanged } from "firebase/auth";
 
 const firebaseConfig = {
     apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -21,3 +19,8 @@ export const auth = getAuth(app);
 auth.useDeviceLanguage();
 export const gp = new GoogleAuthProvider();
 
+export const waitForAuth = new Promise((resolve) => {
+    onAuthStateChanged(auth, (user) => {
+        resolve(user);
+    });
+});

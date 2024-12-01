@@ -5,7 +5,7 @@ import { Task } from '../types';
 
 interface TaskCalendarProps {
     tasks: Task[];
-    onDateClick: (value: Date | Date[], event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+    onDateClick: (value: Date, event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
 export default function TaskCalendar({ tasks, onDateClick }: TaskCalendarProps) {
