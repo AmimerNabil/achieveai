@@ -55,7 +55,7 @@ export default function Home() {
     const [hideCompleted, setHideCompleted] = useState(true);
     const [editTask, setEditTask] = useState<Task | undefined>();
 
-    const handleAddTask = async (taskData: Omit<Task, 'id' | 'isCompleted' | 'isTimerRunning' | 'timeSpent'>) => {
+    const handleAddTask = async (taskData: Omit<Task, '_id' | 'isCompleted' | 'isTimerRunning' | 'timeSpent'>) => {
         const newTask: Task = {
             ...taskData,
             isCompleted: false,
@@ -71,7 +71,7 @@ export default function Home() {
         }
     };
 
-    const handleEditTask = async (taskData: Omit<Task, 'id' | 'isCompleted' | 'isTimerRunning' | 'timeSpent'>) => {
+    const handleEditTask = async (taskData: Omit<Task, '_id' | 'isCompleted' | 'isTimerRunning' | 'timeSpent'>) => {
         try {
             let task = tasks.filter(task => task._id === editTask?._id).at(0)
 
@@ -238,7 +238,7 @@ export default function Home() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <div className="flex justify-between items-center mb-8">
                     <h1 className="text-3xl font-bold text-gray-900 flex items-center">
-                        <Layout className="w-8 h-8 mr-2" />
+                        <img src={auth.currentUser?.photoURL || ""} alt="profile pic" className="w-10 mr-2 h-10 rounded-lg" />
                         {info}'s Task Manager
                     </h1>
                     <button
