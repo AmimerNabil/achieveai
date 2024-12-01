@@ -1,4 +1,3 @@
-import React from 'react';
 import { BarChart3, Clock, CheckCircle2, Target } from 'lucide-react';
 
 interface AnalyticsProps {
