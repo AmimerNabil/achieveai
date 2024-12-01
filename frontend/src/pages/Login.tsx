@@ -1,12 +1,27 @@
 import { QrCode } from "lucide-react";
 import { auth, gp } from "../firebase/auth";
 import { signInWithPopup } from "firebase/auth";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 export default function Login() {
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        // Check if the user is authenticated
+        const user = auth.currentUser
+        if (user) {
+            navigate('/')
+        }
+
+    }, [navigate]);
 
     const handleLoginClick = async () => {
         try {
             const result = await signInWithPopup(auth, gp)
             const user = result.user;
+
+            console.log(user)
         } catch (e) {
             console.error("Error during sign-in:", e);
         }
