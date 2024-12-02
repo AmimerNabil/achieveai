@@ -27,13 +27,13 @@ mongoose.connect(dbURI)
     .catch(err => console.log(err));
 
 // Routes
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
     res.send(req.user);
 });
 
 // Start server
 const taskRoutes = require('./routes/tasks');
-app.use('/tasks', taskRoutes);
+app.use('/api/tasks', taskRoutes);
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
