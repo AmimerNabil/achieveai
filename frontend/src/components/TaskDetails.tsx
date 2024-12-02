@@ -1,4 +1,3 @@
-import React from 'react';
 import { X, Clock, Calendar, Repeat, Timer, Edit } from 'lucide-react';
 import { Task } from '../types';
 

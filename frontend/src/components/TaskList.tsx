@@ -4,10 +4,10 @@ import TaskTimer from './TaskTimer';
 
 interface TaskListProps {
     tasks: Task[];
-    onToggleTimer: (taskId: string, action: 'start' | 'pause' | 'stop' | 'restart') => void;
-    onToggleComplete: (taskId: string) => void;
+    onToggleTimer: (taskId: string | undefined, action: 'start' | 'pause' | 'stop' | 'restart') => void;
+    onToggleComplete: (taskId: string | undefined) => void;
     onTaskClick: (task: Task) => void;
-    onTimeUpdate: (taskId: string, timeSpent: number) => void;
+    onTimeUpdate: (taskId: string | undefined, timeSpent: number) => void;
 }
 
 export default function TaskList({ tasks, onToggleTimer, onToggleComplete, onTaskClick, onTimeUpdate }: TaskListProps) {

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase/auth";
-import { Layout, PlusCircle } from "lucide-react";
+import { PlusCircle } from "lucide-react";
 import Analytics from "../components/Analytics";
 import TaskCalendar from "../components/TaskCalendar";
 import TaskDetails from "../components/TaskDetails";
@@ -93,7 +93,7 @@ export default function Home() {
         }
     };
 
-    const handleToggleComplete = async (taskId: string) => {
+    const handleToggleComplete = async (taskId: string | undefined) => {
         try {
             let task = tasks.filter(task => task._id === taskId).at(0)
             await TaskService.updateTask(taskId, {
@@ -112,7 +112,7 @@ export default function Home() {
         setSelectedTask(task);
     };
 
-    const handleTimeUpdate = async (taskId: string, timeSpent: number) => {
+    const handleTimeUpdate = async (taskId: string | undefined, timeSpent: number) => {
         try {
             await TaskService.updateTask(taskId, {
                 timeSpent: timeSpent
@@ -187,7 +187,7 @@ export default function Home() {
         setTimeFrame('');
     };
 
-    const handleToggleTimer = async (taskId: string, action: 'start' | 'pause' | 'stop' | 'restart') => {
+    const handleToggleTimer = async (taskId: string | undefined, action: 'start' | 'pause' | 'stop' | 'restart') => {
         try {
 
             if (action == "restart" || action == "stop") {
