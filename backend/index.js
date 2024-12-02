@@ -8,12 +8,12 @@ require('dotenv').config();
 const corsOptions = {
     origin: '*', // Your frontend's URL (Vite default port)
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
-    allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
-    credentials: true, // Allow cookies if needed
+    allowedHeaders: ['ngrok-skip-browser-warning', 'Content-Type', 'Authorization'], // Allowed headers
+    credentials: true,
 };
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 // Middleware
 app.use(bodyParser.json());

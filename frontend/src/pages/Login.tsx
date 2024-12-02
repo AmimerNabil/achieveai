@@ -18,10 +18,8 @@ export default function Login() {
 
     const handleLoginClick = async () => {
         try {
-            const result = await signInWithPopup(auth, gp)
-            const user = result.user;
-
-            console.log(user)
+            await signInWithPopup(auth, gp)
+            navigate('/')
         } catch (e) {
             console.error("Error during sign-in:", e);
         }

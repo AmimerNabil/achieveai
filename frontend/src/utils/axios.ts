@@ -1,14 +1,18 @@
 import axios from 'axios';
 import { auth, waitForAuth } from '../firebase/auth';
 
+
 const axiosInstance = axios.create({
     baseURL: import.meta.env.VITE_BACKEND_URL,
+    // httpsAgent,
 });
 
 axiosInstance.interceptors.request.use(
     async (config) => {
         const user = auth.currentUser;
         await waitForAuth;
+
+        config.headers['ngrok-skip-browser-warning'] = "random"
 
         if (user) {
             const idToken = await user.getIdToken();
@@ -27,7 +31,6 @@ axiosInstance.interceptors.response.use(
     (error) => {
         if (error.response && error.response.status === 401) {
             console.log('Unauthorized: Invalid token');
-            // Redirect to the login page
             window.location.href = '/login';
         }
         return Promise.reject(error);
